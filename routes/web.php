@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\apiconnect;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-route::get("/posts",[apiconnect::class, "getApi"]);
+Route::get('/app/{name}',[apiconnect::class,"getData"]);

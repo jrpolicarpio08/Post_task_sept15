@@ -1,15 +1,27 @@
 <?php
 
 namespace App\Http\Controllers;
+use GuzzleHttp\Client;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class apiconnect extends Controller
 {
-    public function getApi(){
-        $post = Http::get("https://api.publicapis.org/entries");
+    public function getData($name){
+        $client = new Client([
+            'base_uri' => config('services.passport.login_endpoint'),
+            'verify' => config('app.debug') ? false : true,
+            'defaults' => [
+                'exceptions' => false,
+            ]
+        ]);
 
-        Return json_decode($posts);
+        $response = $client->request('GET','https://api.coindesk.com/v1/bpi/currentprice.json',[
+                'query' =>[
+                'name' => $name
+            ]
+        ]);
+
+        return $response;
     }
 }
